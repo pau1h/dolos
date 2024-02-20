@@ -28,6 +28,8 @@ only_en["lang"].unique
 x_train,x_test, y_train, y_test = train_test_split(only_en['text'], only_en['label'], test_size=0.2)
 vectorizer = TfidfVectorizer(lowercase=True, stop_words='english') #should test accuracy without stop words
 features_train = vectorizer.fit_transform(x_train)
+with open('vectorizer.pkl', 'wb') as f:
+    pickle.dump(vectorizer,f)
 features_test = vectorizer.transform(x_test)
 model = svm.SVC()
 model.fit(features_train, y_train)
@@ -36,6 +38,4 @@ print("Accuracy {}".format(model.score(features_test, y_test)))
 with open('modelTest6.pkl', 'wb') as f:
     pickle.dump(model,f)
 
-with open('vectorizer.pkl', 'wb') as f:
-    pickle.dump(vectorizer,f)
 
